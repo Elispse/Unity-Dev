@@ -6,6 +6,7 @@ using UnityEngine;
 public class CameraController : MonoBehaviour
 {
     // Start is called before the first frame update
+    [SerializeField] private float speed;
     void Start()
     {
         
@@ -16,33 +17,27 @@ public class CameraController : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.W))
         {
-            transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z + 0.1f);
-            Console.Write("input = w");
+            transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z + speed);
         }
         if (Input.GetKey(KeyCode.S))
         {
-            transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z - 0.1f);
-            Console.Write("input = s");
+            transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z - speed);
         }
         if (Input.GetKey(KeyCode.A))
         {
-            transform.position = new Vector3(transform.position.x - 0.1f, transform.position.y, transform.position.z);
-            Console.Write("input = a");
+            transform.position = new Vector3(transform.position.x - speed, transform.position.y, transform.position.z);
         }
         if (Input.GetKey(KeyCode.D))
         {
-            transform.position = new Vector3(transform.position.x + 0.1f, transform.position.y, transform.position.z);
-            Console.Write("input = d");
+            transform.position = new Vector3(transform.position.x + speed, transform.position.y, transform.position.z);
         }
         if(Input.GetKey(KeyCode.E))
         {
             transform.position = new Vector3(transform.position.x, transform.position.y + 0.1f, transform.position.z);
-            Console.Write("input = e");
         }
         if((Input.GetKey(KeyCode.Q)))
         {
             transform.position = new Vector3(transform.position.x, transform.position.y - 0.1f, transform.position.z);
-            Console.Write("input = q");
         }
     }
 }

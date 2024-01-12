@@ -5,9 +5,15 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody))]
 public class PhysicsCharacterController : MonoBehaviour
 {
+    [Header("Movement")]
     [SerializeField][Range(0f, 10f)] float maxForce = 1;
     [SerializeField][Range(0f, 10f)] float jumpForce = 1;
     [SerializeField] Transform view;
+    [Header("Collision")]
+    [SerializeField] float rayLength = 1;
+    [SerializeField] LayerMask groundLayerMask;
+
+
 
     Rigidbody rb;
     Vector3 force = Vector3.zero;
@@ -16,6 +22,7 @@ public class PhysicsCharacterController : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
     // Update is called once per frame
@@ -26,9 +33,12 @@ public class PhysicsCharacterController : MonoBehaviour
         direction.x = Input.GetAxis("Horizontal");
         direction.z = Input.GetAxis("Vertical");
 
-        force = view.rotation * direction * maxForce;
+        Quaternion yrotation = Quaternion.AngleAxis(view.rotation.eulerAngles.y, Vector3.up);
 
-        if (Input.GetButtonDown("Jump"))
+        force = yrotation * direction * maxForce;
+
+        Debug.DrawRay(transform.position, Vector3.down * rayLength, Color.red);
+        if (Input.GetButtonDown("Jump") && CheckGround())
         {
             rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
         }
@@ -37,5 +47,10 @@ public class PhysicsCharacterController : MonoBehaviour
     private void FixedUpdate()
     {
         rb.AddForce(force, ForceMode.Force);
+    }
+
+    private bool CheckGround()
+    {
+        return Physics.Raycast(transform.position, Vector3.down, rayLength, groundLayerMask);
     }
 }

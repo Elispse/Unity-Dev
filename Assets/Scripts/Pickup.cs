@@ -6,21 +6,16 @@ public class Pickup : MonoBehaviour
 {
     [SerializeField] GameObject pickupPreFab = null;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     private void OnTriggerEnter(Collider other)
     {
+        if (other.gameObject.TryGetComponent(out Player player))
+        {
+            player.AddPoints(10);
+        }
+
         Instantiate(pickupPreFab, transform.position, Quaternion.identity);
-        Destroy(gameObject, 0.25f);
+        Destroy(gameObject, 0.0f);
     }
 }

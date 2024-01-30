@@ -5,6 +5,7 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody))]
 public class PhysicsCharacterController : MonoBehaviour
 {
+	AudioSource audioSource;
 	[Header("Movement")]
 	[SerializeField][Range(1, 10)] float maxForce = 5;
 	[SerializeField][Range(1, 10)] float jumpForce = 5;
@@ -35,7 +36,8 @@ public class PhysicsCharacterController : MonoBehaviour
 		if (Input.GetButtonDown("Jump") && CheckGround())
 		{
 			rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
-		}
+            FindObjectOfType<AudioManager>().Play("Jump");
+        }
 	}
 
 	private void FixedUpdate()

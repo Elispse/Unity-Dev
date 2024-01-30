@@ -18,9 +18,8 @@ public class Pickup : MonoBehaviour
 		{
 			player.AddPoints(10);
 		}
-
-
-		Instantiate(pickupPrefab, transform.position, Quaternion.identity);
+        FindObjectOfType<AudioManager>().Play("Coin");
+        Instantiate(pickupPrefab, transform.position, Quaternion.identity);
 		Destroy(gameObject);
 	}
 }

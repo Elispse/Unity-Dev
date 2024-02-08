@@ -2,9 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerShip : MonoBehaviour
+public class PlayerShip : MonoBehaviour, IDamagable
 {
-    [SerializeField] Inventory inventory;
+    [SerializeField] private IntEvent scoreEvent;
+    [SerializeField] private Inventory inventory;
+    [SerializeField] private IntVariable score;
+    [SerializeField] private FloatVariable health;
+
+    [SerializeField] private GameObject hitPrefab;
+    [SerializeField] private GameObject destroyPrefab;
+
+    private void Start()
+    {
+        scoreEvent.Subscribe(AddPoints);
+        health.value = 100;
+    }
+
     void Update()
     {
         if (Input.GetButtonDown("Fire1"))
@@ -14,6 +27,31 @@ public class PlayerShip : MonoBehaviour
         if (Input.GetButtonUp("Fire1"))
         {
             inventory.StopUse();
+        }
+    }
+
+    public void AddPoints(int points)
+    {
+        score.value += points;
+    }
+
+    public void ApplyDamage(float damage)
+    {
+        health.value -= damage;
+        if (health <= 0)
+        {
+            if (destroyPrefab != null)
+            {
+                Instantiate(destroyPrefab, gameObject.transform.position, Quaternion.identity);
+            }
+            Destroy(gameObject);
+        }
+        else
+        {
+            if (hitPrefab != null)
+            {
+                Instantiate(destroyPrefab, gameObject.transform.position, Quaternion.identity);
+            }
         }
     }
 }

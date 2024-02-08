@@ -9,14 +9,15 @@ using UnityEngine.SceneManagement;
 public class GameManager : Singleton<GameManager>
 {
     [SerializeField] GameObject titleUI;
-    [SerializeField] GameObject gameOverUI;
-    [SerializeField] GameObject winUI;
-    [SerializeField] Player player;
     [SerializeField] TMP_Text livesUI;
     [SerializeField] TMP_Text timerUI;
+    [SerializeField] GameObject gameOverUI;
+    [SerializeField] GameObject winUI;
     [SerializeField] TMP_Text finalScoreUI;
 
+    [SerializeField] Player player;
     [SerializeField] FloatVariable health;
+    [SerializeField] FloatVariable score;
     [SerializeField] GameObject respawn;
      
     [Header("Events")]

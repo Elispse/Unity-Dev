@@ -25,5 +25,5 @@ MonoBehaviour:
   pickupPrefab: {fileID: 0}
   fireRate: 0.2
   spread: {x: 0.1, y: 0.1, z: 0.1}
-  rounds: 0
+  rounds: 10
   ammoPrefab: {fileID: 2606929394966443873, guid: 224538ef514f3db41808ee789bd92b2d, type: 3}
